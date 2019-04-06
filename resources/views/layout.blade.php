@@ -32,7 +32,9 @@
       <nav>
         <a href='{{route('home')}}' class="{{activeMenu('/')}}"> Inicio </a>
         <a href='{{route('saludos', 'Invitado')}}'  class="{{activeMenu('saludos/*')}}" > Saludo </a>
-        <a href='{{route('messages.create')}}' class="{{activeMenu('contacto')}}" > Contactos </a>
+        <a href='{{route('mensajes.create')}}' class="{{activeMenu('mensajes/create')}}" > Contactos </a>
+        <a href='{{route('mensajes.index')}}' class="{{activeMenu('mensajes')}}" > Mensajes </a>
+
       </nav>
 
       <!-- Contenido es el nombre de la seccion que queremos mostrar aca -->
