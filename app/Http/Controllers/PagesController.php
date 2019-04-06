@@ -19,20 +19,10 @@ class PagesController extends Controller
 
     public function home(){return view('home');}
 
-    public function contacto(){return view('contacto');}
-
     //in case $nombre = null => invitado
     public function saludos($nombre = 'Invitado'){
       $consolas = ['PS4', 'GameCube', 'xBox'];
       //return view passing it our two variables
       return view('saludo', compact('consolas', 'nombre'));
     }
-
-    public function mensajes(CreateMessageRequest $request){
-
-      $data = $request->all();
-
-      return back()
-        ->with('info', 'tu mensaje ha sido enviado correctamente :)');
-    }
-}
+  }
