@@ -25,16 +25,21 @@
     </style>
     <body>
       <?php
-      // there is a bug where it's not bold in saludos not /anything
       function activeMenu($url) {
         return request()->is($url) ? 'active' : '';
       } ?>
+
       <nav>
         <a href='{{route('home')}}' class="{{activeMenu('/')}}"> Inicio </a>
-        <a href='{{route('saludos', 'Invitado')}}'  class="{{activeMenu('saludos/*')}}" > Saludo </a>
+        <a href='{{route('saludos', 'Invitado')}}'  class="{{activeMenu('saludos*')}}" > Saludo </a>
         <a href='{{route('mensajes.create')}}' class="{{activeMenu('mensajes/create')}}" > Contactos </a>
         <a href='{{route('mensajes.index')}}' class="{{activeMenu('mensajes')}}" > Mensajes </a>
-
+        @if(auth()->guest())
+        <a href='/login' class="{{activeMenu('login')}}" > Login </a>
+        @endif
+        @if(auth()->check())
+        <a href='/logout'> Cerrar sesion de {{ auth()->user()->name }} </a>
+        @endif
       </nav>
 
       <!-- Contenido es el nombre de la seccion que queremos mostrar aca -->

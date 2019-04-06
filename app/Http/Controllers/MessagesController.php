@@ -9,6 +9,10 @@ use Carbon\Carbon;
 
 class MessagesController extends Controller {
 
+  function __construct(){
+    $this->middleware('auth', ['except' => ['create', 'store']]);
+  }
+
   public function index(){
       $messages = Message::all();
       return view('messages.index', compact('messages'));
@@ -24,7 +28,7 @@ class MessagesController extends Controller {
         'email' => 'required',
         'mensaje' => 'required',]);
       Message::create($request->all());
-      return redirect()->route('mensajes.index');
+      return redirect()->route('mensajes.create')->with('info', 'Hemos recibido tu mensaje :)');
     }
 
     public function show($id){
