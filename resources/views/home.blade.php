@@ -2,6 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
   @extends('layout')
   @section('contenido')
-    home
+    <h1> Home </h1>
+    <p>Welcome to my pagina web :)</p>
   @stop
 </html>
