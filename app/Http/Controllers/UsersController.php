@@ -9,9 +9,11 @@ class UsersController extends Controller {
   function __construct(){
     // si no estas logged in y quieres acceder una pagina relacionado con los Usuarios
     // el middleware te redirecciona a /login
-    $this->middleware('auth');
-    $this->middleware('roles');
-  }
+    $this->middleware([
+      'auth',
+      'roles:admin,estudiante'
+      ]);
+    }
 
 
   public function index()
