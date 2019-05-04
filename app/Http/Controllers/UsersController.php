@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
+use App\HTTP\Requests\UpdateUserRequest;
 
 class UsersController extends Controller {
 
   function __construct(){
     // si no estas logged in y quieres acceder una pagina relacionado con los Usuarios
     // el middleware te redirecciona a /login
-    $this->middleware([
-      'auth',
-      'roles:admin,estudiante'
-      ]);
-    }
+    $this->middleware('auth');
+    $this->middleware('roles:admin', ['except' => ['edit']]);
+}
 
-
-  public function index()
+    public function index()
     {
       $users = \App\User::all();
       return view('users.index', compact('users'));
@@ -27,57 +26,28 @@ class UsersController extends Controller {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+      $user = User::findOrFail($id);
+      return view('users.edit', compact('user')); // passing the user variable
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
-        //
+      User::findOrFail($id)->update($request->all());
+      return back()->with('info', 'usuario actualizado');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

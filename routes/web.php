@@ -29,3 +29,4 @@ Route::get('/logout', 'Auth\LoginController@logout');
    'password' => bcrypt('123'),
    'role_id' => 2,
  ]);
+*/
