@@ -8,8 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 class LoginController extends Controller
 {
   use AuthenticatesUsers;
-
-  #where to redirect after login
+    #where to redirect after login
   protected $redirectTo = '/mensajes';
 
   public function __construct()

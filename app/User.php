@@ -19,14 +19,7 @@ class User extends Authenticatable
     ];
 
     public function hasRoles(array $roles) {
-      foreach ($roles as $role) {
-        foreach ($this->roles as $userRole){
-          if ($userRole->name === $role){
-            return true;
-          }
-        }
-      }
-      return false;
+      return $this->roles->pluck('name')->intersect($roles);
     }
 
     public function roles() {
@@ -34,7 +27,27 @@ class User extends Authenticatable
       return $this->belongsToMany(Role::class);
     }
 
+    public function isAdmin(){
+      return $this->hasRoles(['admin']);
+    }
+
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function messages(){
+      return $this->hasMany(Message::class);
+    }
+
+    public function setPasswordAttribute($password){
+      $this->attributes['password'] = bcrypt($password);
+    }
+
+    public function note() {
+      return $this->morphOne(Note::class, 'notable');
+    }
+
+    public function tags(){
+      return $this->morphToMany(Tag::class, 'taggable')->withTimestamps();
+    }
 }

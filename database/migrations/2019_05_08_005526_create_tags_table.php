@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMessageTable extends Migration
+class CreateTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,23 +13,20 @@ class CreateMessageTable extends Migration
      */
     public function up()
     {
-        Schema::create('messages', function (Blueprint $table) {
+        Schema::create('tags', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name');
             $table->timestamps();
-            $table->string('nombre')->nullable();
-            $table->string('email')->nullable();
-            $table->text('mensaje');
-
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Reverse the migratiocns.
      *
      * @return void
      */
     public function down()
     {
-        Schema::dropIfExists('messages');
+        Schema::dropIfExists('tags');
     }
 }
